@@ -1,0 +1,36 @@
+#!/bin/bash
+
+#Author: venkatesh
+
+#Date: 17-05-2023
+
+#Version: v1
+
+set -x
+
+#To track aws resources
+
+#To get list of s3 buckets
+
+echo "print list of s3 buckets"
+
+aws s3api list-buckets --query 'Buckets[*].{Name:Name,CreationDate:CreationDate}' --output table
+
+
+# To get list of ec2 instances
+
+echo "print list of ec2 instances"
+
+aws ec2 describe-instances --query 'Reservations[*].Instances[*].{ID:InstanceId,State:State.Name}' --output table
+
+# To get IAM roles
+
+echo "print list of IAM roles"
+
+aws iam list-roles --query 'Roles[*].{RoleName:RoleName,CreateDate:CreateDate}' --output table
+
+#To get list of vpcs
+
+echo "print list of vpcs"
+
+aws ec2 describe-vpcs --query 'Vpcs[*].{VPCID:VpcId,CIDR:CidrBlock}' --output table
